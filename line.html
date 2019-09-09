@@ -37,12 +37,16 @@
        canvas: canvas,
        c: c,
 
+       passTime: function() {
+         this.draw();
+       },
+
        draw: function() {
          this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
          for (star of this.stars) {
            star.draw(this.c);
          }
-       }
+       },
      };
    }
 
@@ -67,9 +71,15 @@
      new Space("milky", 50),
    ];
 
-   for (galaxy of galaxies) {
-     galaxy.draw();
+   function passTime() {
+     for (galaxy of galaxies) {
+       galaxy.passTime();
+     }
+
+     window.requestAnimationFrame(passTime);
    }
+
+   passTime();
 
 
   </script>
