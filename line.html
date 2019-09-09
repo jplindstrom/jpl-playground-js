@@ -19,21 +19,25 @@
    const canvas = document.getElementById("space");
    const c = canvas.getContext("2d");
 
-   function drawStar(x, y, size, color) {
-     if (! color ) {
-       color = 'rgb(200, 200, 200)';
-     }
-     if (!size) {
-       size = 2;
-     }
+   function drawSpace() {
+     const star = newStar(20, 40);
 
-     c.fillStyle = color;
-     const sizeOffset = size / 2;
-     c.fillRect(x - sizeOffset, y - sizeOffset, size, size);
+     star.draw();
    }
 
-   function drawSpace() {
-     drawStar(20, 10);
+   function newStar(x, y, size = 2, color = 'rgb(200, 200, 200)') {
+     return {
+       x: x,
+       y: y,
+       size: size,
+       color: color,
+
+       draw: function() {
+         c.fillStyle = this.color;
+         const sizeOffset = this.size / 2;
+         c.fillRect(this.x - sizeOffset, this.y - sizeOffset, this.size, this.size);
+       }
+     };
    }
 
    drawSpace();
