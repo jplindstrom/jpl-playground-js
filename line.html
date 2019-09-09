@@ -24,7 +24,12 @@
 
 
    function Space(starCount = 100) {
-     const stars = Array(starCount).fill().map( () => new Star() );
+     const stars = Array(starCount).fill().map(
+       () => new Star(
+         Math.floor(Math.random() * canvasWidth),
+         Math.floor(Math.random() * canvasHeight),
+       ),
+     );
 
      return {
        stars: stars,
@@ -39,8 +44,6 @@
    }
 
    function Star(x, y, size = 2, color = 'rgb(200, 200, 200)') {
-     x = x || Math.floor(Math.random() * canvasWidth);
-     y = y || Math.floor(Math.random() * canvasHeight);
      return {
        x: x,
        y: y,
