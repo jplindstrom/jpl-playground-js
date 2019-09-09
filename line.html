@@ -16,17 +16,17 @@
 
   <script>
 
-   const canvas = document.getElementById("space");
-   const c = canvas.getContext("2d");
 
-   const canvasWidth = canvas.width;
-   const canvasHeight = canvas.height;
+   function Space(id, starCount = 100) {
 
+     const canvas = document.getElementById("space");
+     const c = canvas.getContext("2d");
 
-   function Space(starCount = 100) {
+     const canvasWidth = canvas.width;
+     const canvasHeight = canvas.height;
+
      const stars = Array(starCount).fill().map(
        () => new Star(
-         this,
          Math.floor(Math.random() * canvasWidth),
          Math.floor(Math.random() * canvasHeight),
        ),
@@ -34,25 +34,26 @@
 
      return {
        stars: stars,
+       canvas: canvas,
+       c: c,
 
        draw: function() {
-         c.clearRect(0, 0, canvas.width, canvas.height)
+         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
          for (star of this.stars) {
-           star.draw();
+           star.draw(this.c);
          }
        }
      };
    }
 
-   function Star(space, x, y, size = 2, color = 'rgb(200, 200, 200)') {
+   function Star(x, y, size = 2, color = 'rgb(200, 200, 200)') {
      return {
-       space: space,
        x: x,
        y: y,
        size: size,
        color: color,
 
-       draw: function() {
+       draw: function(c) {
          c.fillStyle = this.color;
          const sizeOffset = this.size / 2;
          c.fillRect(this.x - sizeOffset, this.y - sizeOffset, this.size, this.size);
@@ -61,7 +62,7 @@
    }
 
 
-   const space = new Space(50);
+   const space = new Space("space", 50);
    space.draw();
 
 
