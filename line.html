@@ -30,6 +30,7 @@
        stars: stars,
 
        draw: function() {
+         c.clearRect(0, 0, canvas.width, canvas.height)
          for (star of this.stars) {
            star.draw();
          }
