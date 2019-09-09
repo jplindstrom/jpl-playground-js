@@ -19,13 +19,23 @@
    const canvas = document.getElementById("space");
    const c = canvas.getContext("2d");
 
-   function drawSpace() {
-     const star = new Star(20, 40);
+   const canvasWidth = 800;
+   const canvasHeight = 480;
 
-     star.draw();
+   function drawSpace() {
+     const starCount = 100;
+     const stars = Array(starCount).fill().map( () => new Star() );
+
+     console.log(stars);
+     for (star of stars) {
+       console.log(star);
+       star.draw();
+     }
    }
 
    function Star(x, y, size = 2, color = 'rgb(200, 200, 200)') {
+     x = x || Math.floor(Math.random() * canvasWidth);
+     y = y || Math.floor(Math.random() * canvasHeight);
      return {
        x: x,
        y: y,
