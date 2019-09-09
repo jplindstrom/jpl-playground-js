@@ -57,15 +57,26 @@
    }
 
    function Star(x, y, size = 2, color = 'rgb(200, 200, 200)') {
+     const dx = (Math.random() - 0.5) / 2;
+     const dy = (Math.random() - 0.5) / 2;
      return {
        x: x,
        y: y,
        size: size,
        color: color,
+       dx: dx,
+       dy: dy,
 
        move: function(space) {
-         this.x = Math.floor(Math.random() * space.width);
-         this.y = Math.floor(Math.random() * space.height);
+         this.x = this.moveDimension(this.x, this.dx, space.width);
+         this.y = this.moveDimension(this.y, this.dy, space.height);
+       },
+
+       moveDimension: function(d, dd, dMax) {
+         d += dd;
+         if (d < 0) { d = dMax }
+         else if (d > dMax) { d = 0 }
+         return d;
        },
 
        draw: function(c) {
