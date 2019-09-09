@@ -19,6 +19,24 @@
    const canvas = document.getElementById("space");
    const c = canvas.getContext("2d");
 
+   function drawStar(x, y, size, color) {
+     if (! color ) {
+       color = 'rgb(200, 200, 200)';
+     }
+     if (!size) {
+       size = 2;
+     }
+
+     c.fillStyle = color;
+     const sizeOffset = size / 2;
+     c.fillRect(x - sizeOffset, y - sizeOffset, size, size);
+   }
+
+   function drawSpace() {
+     drawStar(20, 10);
+   }
+
+   drawSpace();
 
   </script>
 </html>
