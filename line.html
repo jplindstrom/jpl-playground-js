@@ -20,12 +20,12 @@
    const c = canvas.getContext("2d");
 
    function drawSpace() {
-     const star = newStar(20, 40);
+     const star = new Star(20, 40);
 
      star.draw();
    }
 
-   function newStar(x, y, size = 2, color = 'rgb(200, 200, 200)') {
+   function Star(x, y, size = 2, color = 'rgb(200, 200, 200)') {
      return {
        x: x,
        y: y,
