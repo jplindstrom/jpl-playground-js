@@ -22,15 +22,19 @@
    const canvasWidth = canvas.width;
    const canvasHeight = canvas.height;
 
-   function drawSpace() {
-     const starCount = 100;
+
+   function Space(starCount = 100) {
      const stars = Array(starCount).fill().map( () => new Star() );
 
-     console.log(stars);
-     for (star of stars) {
-       console.log(star);
-       star.draw();
-     }
+     return {
+       stars: stars,
+
+       draw: function() {
+         for (star of this.stars) {
+           star.draw();
+         }
+       }
+     };
    }
 
    function Star(x, y, size = 2, color = 'rgb(200, 200, 200)') {
@@ -50,7 +54,10 @@
      };
    }
 
-   drawSpace();
+
+   const space = new Space(50);
+   space.draw();
+
 
   </script>
 </html>
