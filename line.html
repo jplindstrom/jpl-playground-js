@@ -25,6 +25,8 @@
      const width = canvas.width;
      const height = canvas.height;
 
+     const field = new Field(width, height);
+
      const stars = Array(starCount).fill().map(
        () => new Star(
          Math.floor(Math.random() * width),
@@ -39,6 +41,7 @@
        width: width,
        height: height,
        maxDistance: maxDistance,
+       field: field,
 
        passTime: function() {
          for (star of this.stars) {
@@ -144,6 +147,17 @@
        },
      };
    }
+
+
+
+   function Field(spaceWidth, spaceHeight) {
+
+     return {
+       spaceWidth: spaceWidth,
+       spaceHeight: spaceHeight,
+     };
+   }
+
 
 
    const galaxies = [
