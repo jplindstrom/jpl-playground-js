@@ -61,10 +61,12 @@
 
        drawStarLines: function() {
          this.c.strokeStyle = 'rgb(100, 100, 100)';
-         let lastStar = this.stars[ this.stars.length - 1 ];
-         for (star of this.stars) {
-           this.drawStarLine(star, lastStar);
-           lastStar = star;
+
+         for (star1 of this.stars) {
+           for (star2 of this.stars) {
+             if (star1 === star2) { continue; }
+             this.drawStarLine(star1, star2);
+           }
          }
        },
 
@@ -122,7 +124,7 @@
 
    const galaxies = [
      new Space("andromeda", 10),
-     new Space("milky", 30),
+     new Space("milky", 10),
    ];
 
    function passTime() {
