@@ -97,7 +97,7 @@
      };
    }
 
-   function Star(x, y, size = 2, color = 'rgb(200, 200, 200)') {
+   function Star(x, y, color = 'rgb(200, 200, 200)', mass) {
      const randomD = function() {
        const d = ((Math.random() - 0.5) * 0.7) + 0.1;
        // console.log(d);
@@ -105,13 +105,14 @@
      };
      const dx = randomD();
      const dy = randomD();
+     mass = mass || Math.random() * 10;
      return {
        x: x,
        y: y,
-       size: size,
        color: color,
        dx: dx,
        dy: dy,
+       mass: mass,
 
        move: function(space) {
          this.x = this.moveDimension(this.x, this.dx, space.width);
@@ -127,8 +128,9 @@
 
        draw: function(space) {
          space.c.fillStyle = this.color;
-         const sizeOffset = this.size / 2;
-         space.c.fillRect(this.x - sizeOffset, this.y - sizeOffset, this.size, this.size);
+         const size = this.mass / 2;
+         const sizeOffset = size / 2;
+         space.c.fillRect(this.x - sizeOffset, this.y - sizeOffset, size, size);
 
          const tailPoint = this.tailPoint();
          space.drawLine(this.x, this.y, tailPoint.x, tailPoint.y);
