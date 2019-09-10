@@ -84,8 +84,13 @@
    }
 
    function Star(x, y, size = 2, color = 'rgb(200, 200, 200)') {
-     const dx = (Math.random() - 0.5) / 2;
-     const dy = (Math.random() - 0.5) / 2;
+     const randomD = function() {
+       const d = ((Math.random() - 0.5) * 0.7) + 0.1;
+       // console.log(d);
+       return d;
+     };
+     const dx = randomD();
+     const dy = randomD();
      return {
        x: x,
        y: y,
