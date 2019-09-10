@@ -149,21 +149,35 @@
    }
 
 
-
    function Field(spaceWidth, spaceHeight) {
      const pixelPerLocation = 10;
 
      const width = Math.floor(spaceWidth / pixelPerLocation);
      const height = Math.floor(spaceHeight / pixelPerLocation);
 
-     const matrix = Array.from(
-       Array(width), () => Array.from(Array(width), () => 0)
-     );
+     const newMatrix = function(value) {
+       return Array.from(
+         Array(
+           width,
+         ), () => Array.from( Array(width), () => value ),
+       );
+     }
+
+     const xMatrix = newMatrix(1);
+     const yMatrix = newMatrix(0.5);
 
      return {
        width: width,
        height: height,
-       matrix: matrix,
+       xMatrix: xMatrix,
+       yMatrix: yMatrix,
+
+       newMatrix: newMatrix,
+
+       resetMatrix: function() {
+         this.xMatrix = newMatrix(1);
+         this.yMatrix = newMatrix(0.5);
+       }
      };
    }
 
