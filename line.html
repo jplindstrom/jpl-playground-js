@@ -111,7 +111,7 @@
      };
      const dx = randomD();
      const dy = randomD();
-     mass = mass || Math.random() * 10;
+     mass = mass || Math.random() * 5 + 3;
      return {
        x: x,
        y: y,
@@ -151,8 +151,8 @@
 
        changeSpeed: function(field) {
          const point = field.pixelToPoint(this.x, this.y);
-         this.dx += field.xInfluence(point);
-         this.dy += field.yInfluence(point);
+         this.dx += field.xInfluence(point, this.mass);
+         this.dy += field.yInfluence(point, this.mass);
        },
      };
    }
@@ -172,8 +172,8 @@
        );
      }
 
-     const xMatrix = newMatrix(0.01);
-     const yMatrix = newMatrix(-0.005);
+     const xMatrix = newMatrix(0.02);
+     const yMatrix = newMatrix(-0.01);
 
      return {
        width: width,
@@ -189,14 +189,13 @@
          this.yMatrix = newMatrix(0.5);
        },
 
-       xInfluence: function(point) {
-         ///JPL: divided by mass
+       xInfluence: function(point, mass) {
          const influence = this.xMatrix[ point[0] ][ point[1] ];
-         return influence;
+         return influence / mass;
        },
-       yInfluence: function(point) {
+       yInfluence: function(point, mass) {
          const influence = this.yMatrix[ point[0] ][ point[1] ];
-         return influence;
+         return influence / mass;
        },
 
        pixelToPoint: function(x, y) {
