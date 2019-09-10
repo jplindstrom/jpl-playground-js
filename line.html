@@ -129,7 +129,17 @@
          space.c.fillStyle = this.color;
          const sizeOffset = this.size / 2;
          space.c.fillRect(this.x - sizeOffset, this.y - sizeOffset, this.size, this.size);
-       }
+
+         const tailPoint = this.tailPoint();
+         space.drawLine(this.x, this.y, tailPoint.x, tailPoint.y);
+       },
+
+       tailPoint: function() {
+         return {
+           x: this.x - ( this.dx * 20 ),
+           y: this.y - ( this.dy * 20 ),
+         };
+       },
      };
    }
 
