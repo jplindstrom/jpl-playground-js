@@ -45,6 +45,10 @@
 
        passTime: function() {
          for (star of this.stars) {
+           star.changeSpeed(this.field);
+         }
+
+         for (star of this.stars) {
            star.move(this);
          }
 
@@ -144,6 +148,12 @@
            y: this.y - ( this.dy * 20 ),
          };
        },
+
+       changeSpeed: function(field) {
+         const point = field.pixelToPoint(this.x, this.y);
+         this.dx += field.xInfluence(point);
+         this.dy += field.yInfluence(point);
+       },
      };
    }
 
@@ -162,20 +172,38 @@
        );
      }
 
-     const xMatrix = newMatrix(1);
-     const yMatrix = newMatrix(-0.5);
+     const xMatrix = newMatrix(0.01);
+     const yMatrix = newMatrix(-0.005);
 
      return {
        width: width,
        height: height,
        xMatrix: xMatrix,
        yMatrix: yMatrix,
+       pixelPerLocation: pixelPerLocation,
 
        newMatrix: newMatrix,
 
        resetMatrix: function() {
          this.xMatrix = newMatrix(1);
          this.yMatrix = newMatrix(0.5);
+       },
+
+       xInfluence: function(point) {
+         ///JPL: divided by mass
+         const influence = this.xMatrix[ point[0] ][ point[1] ];
+         return influence;
+       },
+       yInfluence: function(point) {
+         const influence = this.yMatrix[ point[0] ][ point[1] ];
+         return influence;
+       },
+
+       pixelToPoint: function(x, y) {
+         return [
+           Math.floor(x / pixelPerLocation),
+           Math.floor(y / pixelPerLocation),
+         ];
        }
      };
    }
