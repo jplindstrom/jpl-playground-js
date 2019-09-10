@@ -53,7 +53,7 @@
 
          // Draw stars
          for (star of this.stars) {
-           star.draw(this.c);
+           star.draw(this);
          }
 
          // Draw lines between stars
@@ -125,17 +125,17 @@
          return d;
        },
 
-       draw: function(c) {
-         c.fillStyle = this.color;
+       draw: function(space) {
+         space.c.fillStyle = this.color;
          const sizeOffset = this.size / 2;
-         c.fillRect(this.x - sizeOffset, this.y - sizeOffset, this.size, this.size);
+         space.c.fillRect(this.x - sizeOffset, this.y - sizeOffset, this.size, this.size);
        }
      };
    }
 
 
    const galaxies = [
-     new Space("andromeda", 10, 20),
+     new Space("andromeda", 10, 30),
      new Space("milky", 10, 100),
    ];
 
