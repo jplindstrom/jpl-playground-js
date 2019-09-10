@@ -123,7 +123,7 @@
 
        moveDimension: function(d, dd, dMax) {
          d += dd;
-         if (d < 0) { d = dMax }
+         if (d < 0) { d = dMax - 1 }
          else if (d > dMax) { d = 0 }
          return d;
        },
