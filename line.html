@@ -262,14 +262,15 @@
        },
 
        drawGravitySize: function(px, py, gravitySize, space) {
-         const x = px * this.pixelPerLocation;
-         const y = py * this.pixelPerLocation;
+         const pixelCount = this.pixelPerLocation;
+         const x = px * pixelCount;
+         const y = py * pixelCount;
          const opacity = Math.abs(gravitySize);
          space.c.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-         space.c.fillRect(x, y, this.pixelPerLocation, this.pixelPerLocation);
+         space.c.fillRect(x, y, pixelCount, pixelCount);
 
-         const xCenter = x + (this.pixelPerLocation / 2);
-         const yCenter = y + (this.pixelPerLocation / 2);
+         const xCenter = x + (pixelCount / 2);
+         const yCenter = y + (pixelCount / 2);
          const dx = this.xMatrix[px][py] * 100;
          const dy = this.xMatrix[px][py] * 100;
 
