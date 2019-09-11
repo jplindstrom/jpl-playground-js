@@ -97,8 +97,11 @@
          this.drawLine(star1.x, star1.y, star2.x, star2.y);
        },
 
-       drawLine: function(x1, y1, x2, y2) {
+       drawLine: function(x1, y1, x2, y2, strokeStyle) {
          const c = this.c;
+         if (strokeStyle) {
+           c.strokeStyle = strokeStyle;
+         }
          c.beginPath();
          c.moveTo(x1, y1);
          c.lineTo(x2, y2);
@@ -264,6 +267,13 @@
          const opacity = Math.abs(gravitySize);
          space.c.fillStyle = `rgba(255, 255, 255, ${opacity})`;
          space.c.fillRect(x, y, this.pixelPerLocation, this.pixelPerLocation);
+
+         const xCenter = x + (this.pixelPerLocation / 2);
+         const yCenter = y + (this.pixelPerLocation / 2);
+         const dx = this.xMatrix[px][py] * 100;
+         const dy = this.xMatrix[px][py] * 100;
+
+         space.drawLine(xCenter, yCenter, xCenter + dx, yCenter + dy, 'rgb(100, 100, 100)');
        }
 
      };
