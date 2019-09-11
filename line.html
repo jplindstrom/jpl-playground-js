@@ -221,7 +221,7 @@
          let gravity = mass / 500;
          // console.log("placeGravityWell", { mass: mass, gravityStep: gravityStep, gravity: gravity });
          for (let r = 1, g = gravity; r < radius; r++, g = gravity / (radius ** 2)) {
-           this.setMatrixGravityCircle(centerPoint, r, gravity);
+           this.setMatrixGravityCircle(centerPoint, r, g);
          }
        },
 
