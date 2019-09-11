@@ -242,7 +242,9 @@
        },
 
        matrixGravitySizeAt: function(px, py) {
-         return Math.abs(this.xMatrix[px][py]) + Math.abs(this.yMatrix[px][py]);
+         const dx = this.xMatrix[px][py];
+         const dy = this.yMatrix[px][py];
+         return Math.sqrt((dx ** 2) + (dy ** 2));
        },
 
        draw: function(space) {
