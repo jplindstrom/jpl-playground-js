@@ -26,6 +26,7 @@
      const height = canvas.height;
 
      const field = new Field(width, height);
+     field.placeGravityWell(width / 2, height / 2, 10);
 
      const stars = Array(starCount).fill().map(
        () => new Star(
@@ -172,8 +173,8 @@
        );
      }
 
-     const xMatrix = newMatrix(0.02);
-     const yMatrix = newMatrix(-0.01);
+     const xMatrix = newMatrix(0);
+     const yMatrix = newMatrix(0);
 
      return {
        width: width,
@@ -203,7 +204,37 @@
            Math.floor(x / pixelPerLocation),
            Math.floor(y / pixelPerLocation),
          ];
-       }
+       },
+
+       placeGravityWell: function(xCenter, yCenter, mass) {
+         const centerPoint = this.pixelToPoint(xCenter, yCenter);
+         const radius = Math.floor(mass / 10);
+
+         const gravityStep = mass / radius;
+         let gravity = mass / 20;
+         for (let r = 0; r < radius; r++, gravity += gravityStep) {
+           this.setMatrixGravityCircle(centerPoint, r, gravity);
+           break; ///JPL only do this once until we're drawing a circle
+         }
+       },
+
+       setMatrixGravityCircle(centerPoint, radius, gravity) {
+         const x = centerPoint[0];
+         const y = centerPoint[1];
+         const g = gravity;
+         this.adjustMatrixGravityAt(x    , y - 1,  0, -g); // top
+         this.adjustMatrixGravityAt(x + 1, y    , -g,  0); // right
+         this.adjustMatrixGravityAt(x    , y + 1,  0, +g); // bottom
+         this.adjustMatrixGravityAt(x - 1, y    , +g,  0); // left
+         console.log(this.xMatrix);
+         console.log(this.yMatrix);
+       },
+
+       adjustMatrixGravityAt: function(x, y, dx, dy) {
+         this.xMatrix[x][y] += dx;
+         this.yMatrix[x][y] += dy;
+       },
+
      };
    }
 
