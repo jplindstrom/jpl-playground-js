@@ -230,7 +230,7 @@
          this.adjustMatrixGravityAt(x + 1, y    , -g,  0); // right
          this.adjustMatrixGravityAt(x + 1, y + 1, -g, -g); // bottom right
          this.adjustMatrixGravityAt(x    , y + 1,  0, -g); // bottom
-         this.adjustMatrixGravityAt(x - 1, y + 1, -g,  g); // bottom left
+         this.adjustMatrixGravityAt(x - 1, y + 1, +g, -g); // bottom left
          this.adjustMatrixGravityAt(x - 1, y    , +g,  0); // left
          this.adjustMatrixGravityAt(x - 1, y - 1, +g, +g); // top left
        },
