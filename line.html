@@ -274,7 +274,7 @@
          const pixelCount = this.pixelPerLocation;
          const x = px * pixelCount;
          const y = py * pixelCount;
-         const opacity = gravitySize;
+         const opacity = gravitySize / 2;
          space.c.fillStyle = `rgba(255, 255, 255, ${opacity})`;
          space.c.fillRect(x, y, pixelCount, pixelCount);
 
@@ -283,7 +283,7 @@
          const dx = this.xMatrix[px][py] * 100;
          const dy = this.yMatrix[px][py] * 100;
 
-         space.drawLine(xCenter, yCenter, xCenter + dx, yCenter + dy, 'rgb(100, 100, 100)');
+         space.drawLine(xCenter, yCenter, xCenter + dx, yCenter + dy, 'rgb(50, 50, 50)');
        }
 
      };
