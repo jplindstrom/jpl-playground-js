@@ -220,7 +220,7 @@
          const gravityStep = mass / radius;
          let gravity = mass / 100;
          ///JPL: let gravity fade away more realistically
-         for (let r = 1; r < radius; r++, gravity = gravity - Math.sqrt(gravity)) {
+         for (let r = 1; r < radius; r++, gravity = gravity *= 0.6) {
            this.setMatrixGravityCircle(centerPoint, r, gravity);
          }
        },
