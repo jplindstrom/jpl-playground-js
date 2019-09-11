@@ -272,7 +272,7 @@
          const xCenter = x + (pixelCount / 2);
          const yCenter = y + (pixelCount / 2);
          const dx = this.xMatrix[px][py] * 100;
-         const dy = this.xMatrix[px][py] * 100;
+         const dy = this.yMatrix[px][py] * 100;
 
          space.drawLine(xCenter, yCenter, xCenter + dx, yCenter + dy, 'rgb(100, 100, 100)');
        }
