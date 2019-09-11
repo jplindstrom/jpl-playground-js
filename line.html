@@ -249,7 +249,7 @@
 
        adjustMatrixGravityAt: function(px, py, dx, dy) {
          if (px < 0 || py < 0 || px >= this.width || py >= this.height) return;
-         const divisor = dx && dy ? 2 : 1;
+         const divisor = 1; // dx && dy ? 2 : 1; ///JPL: should be something more like sqrt
          this.xMatrix[px][py] += dx / divisor;
          this.yMatrix[px][py] += dy / divisor;
        },
