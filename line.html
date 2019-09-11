@@ -218,10 +218,9 @@
          // console.log(`JPL: mass: ${mass}, radius: ${radius}`);
 
          const gravityStep = mass / radius;
-         let gravity = mass * this.pixelPerLocation / 1000;
+         let gravity = mass / 500;
          // console.log("placeGravityWell", { mass: mass, gravityStep: gravityStep, gravity: gravity });
-         ///JPL: let gravity fade away more realistically
-         for (let r = 1; r < radius; r++, gravity = gravity *= 0.6) {
+         for (let r = 1, g = gravity; r < radius; r++, g = gravity / (radius ** 2)) {
            this.setMatrixGravityCircle(centerPoint, r, gravity);
          }
        },
