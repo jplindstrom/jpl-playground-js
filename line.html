@@ -214,11 +214,12 @@
 
        placeGravityWell: function(xCenter, yCenter, mass) {
          const centerPoint = this.pixelToPoint(xCenter, yCenter);
-         const radius = Math.floor(mass / 2);
-         console.log(`JPL: mass: ${mass}, radius: ${radius}`);
+         const radius = Math.floor(mass / 1);
+         // console.log(`JPL: mass: ${mass}, radius: ${radius}`);
 
          const gravityStep = mass / radius;
          let gravity = mass / 100;
+         // console.log("placeGravityWell", { mass: mass, gravityStep: gravityStep, gravity: gravity });
          ///JPL: let gravity fade away more realistically
          for (let r = 1; r < radius; r++, gravity = gravity *= 0.6) {
            this.setMatrixGravityCircle(centerPoint, r, gravity);
@@ -229,15 +230,19 @@
          const h = centerPoint[0];
          const k = centerPoint[1];
 
-         const step = 2 * Math.PI / 10; // originally 20
+         const step = 2 * Math.PI / 40; // originally 20
          const r = radius;
 
+         console.log("setMatrixGravityCircle", { radius: radius, gravity: gravity, step: step });
          for(let theta = 0;  theta < 2 * Math.PI; theta += step) {
-           const x = Math.ceil(h + r * Math.cos(theta));
-           const y = Math.ceil(k - r * Math.sin(theta));
+           const gx = r * Math.cos(theta);
+           const gy = r * Math.sin(theta);
+           const x = Math.ceil(h + gx);
+           const y = Math.ceil(k - gy);
 
-           const xGravity = 0.1;
-           const yGravity = 0.1;
+           // Point back to centerPoint
+           const xGravity = -gx * gravity;
+           const yGravity =  gy * gravity;
            this.adjustMatrixGravityAt(x , y,  xGravity, yGravity);
          }
        },
