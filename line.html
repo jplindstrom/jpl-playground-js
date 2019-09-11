@@ -57,6 +57,7 @@
 
        draw: function() {
          this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
+         this.c.strokeStyle = 'rgb(100, 100, 100)';
 
          // Draw stars
          for (star of this.stars) {
@@ -68,7 +69,6 @@
        },
 
        drawStarLines: function() {
-         this.c.strokeStyle = 'rgb(100, 100, 100)';
 
          for (star1 of this.stars) {
            for (star2 of this.stars) {
