@@ -59,6 +59,7 @@
 
        draw: function() {
          this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
+         this.field.draw(this);
          this.c.strokeStyle = 'rgb(100, 100, 100)';
 
          // Draw stars
@@ -212,7 +213,7 @@
          const radius = Math.floor(mass / 10);
 
          const gravityStep = mass / radius;
-         let gravity = mass / 20;
+         let gravity = mass / 100;
          for (let r = 0; r < radius; r++, gravity += gravityStep) {
            this.setMatrixGravityCircle(centerPoint, r, gravity);
            break; ///JPL only do this once until we're drawing a circle
@@ -231,10 +232,33 @@
          console.log(this.yMatrix);
        },
 
-       adjustMatrixGravityAt: function(x, y, dx, dy) {
-         this.xMatrix[x][y] += dx;
-         this.yMatrix[x][y] += dy;
+       adjustMatrixGravityAt: function(px, py, dx, dy) {
+         this.xMatrix[px][py] += dx;
+         this.yMatrix[px][py] += dy;
        },
+
+       matrixGravitySizeAt: function(px, py) {
+         return this.xMatrix[px][py] + this.yMatrix[px][py];
+       },
+
+       draw: function(space) {
+         for (let px = 0; px < this.width; px++) {
+           for (let py = 0; py < this.height; py++) {
+             const gravitySize = this.matrixGravitySizeAt(px, py);
+             if (!gravitySize) continue;
+
+             this.drawGravitySize(px, py, gravitySize, space);
+           }
+         }
+       },
+
+       drawGravitySize: function(px, py, gravitySize, space) {
+         const x = px * this.pixelPerLocation;
+         const y = py * this.pixelPerLocation;
+         const opacity = Math.abs(gravitySize);
+         space.c.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+         space.c.fillRect(x, y, this.pixelPerLocation, this.pixelPerLocation);
+       }
 
      };
    }
