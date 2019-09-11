@@ -15,6 +15,7 @@
   </body>
 
   <script>
+   "use strict";
 
    // http://slicker.me/javascript/particles.htm inspired me to do this
 
@@ -46,11 +47,11 @@
        field: field,
 
        passTime: function() {
-         for (star of this.stars) {
+         for (let star of this.stars) {
            star.changeSpeed(this.field);
          }
 
-         for (star of this.stars) {
+         for (let star of this.stars) {
            star.move(this);
          }
 
@@ -63,7 +64,7 @@
          this.c.strokeStyle = 'rgb(100, 100, 100)';
 
          // Draw stars
-         for (star of this.stars) {
+         for (let star of this.stars) {
            star.draw(this);
          }
 
@@ -73,8 +74,8 @@
 
        drawStarLines: function() {
 
-         for (star1 of this.stars) {
-           for (star2 of this.stars) {
+         for (let star1 of this.stars) {
+           for (let star2 of this.stars) {
              if (star1 === star2) { continue }
              if (this.isTooFarAway(star1, star2)) { continue }
              this.drawStarLine(star1, star2);
@@ -225,20 +226,26 @@
          const y = centerPoint[1];
          const g = gravity;
          this.adjustMatrixGravityAt(x    , y - 1,  0, +g); // top
+         this.adjustMatrixGravityAt(x + 1, y - 1, -g, +g); // top right
          this.adjustMatrixGravityAt(x + 1, y    , -g,  0); // right
+         this.adjustMatrixGravityAt(x + 1, y + 1, -g, -g); // bottom right
          this.adjustMatrixGravityAt(x    , y + 1,  0, -g); // bottom
+         this.adjustMatrixGravityAt(x - 1, y + 1, -g,  g); // bottom left
          this.adjustMatrixGravityAt(x - 1, y    , +g,  0); // left
+         this.adjustMatrixGravityAt(x - 1, y - 1, +g, +g); // top left
          console.log(this.xMatrix);
          console.log(this.yMatrix);
        },
 
        adjustMatrixGravityAt: function(px, py, dx, dy) {
-         this.xMatrix[px][py] += dx;
-         this.yMatrix[px][py] += dy;
+         const divisor = dx && dy ? 2 : 1;
+         console.log(dx, dy, divisor);
+         this.xMatrix[px][py] += dx / divisor;
+         this.yMatrix[px][py] += dy / divisor;
        },
 
        matrixGravitySizeAt: function(px, py) {
-         return this.xMatrix[px][py] + this.yMatrix[px][py];
+         return Math.abs(this.xMatrix[px][py]) + Math.abs(this.yMatrix[px][py]);
        },
 
        draw: function(space) {
@@ -271,7 +278,7 @@
    ];
 
    function passTime() {
-     for (galaxy of galaxies) {
+     for (let galaxy of galaxies) {
        galaxy.passTime();
      }
 
