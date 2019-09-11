@@ -166,7 +166,7 @@
 
 
    function Field(spaceWidth, spaceHeight) {
-     const pixelPerLocation = 20;
+     const pixelPerLocation = 10;
 
      const width = Math.floor(spaceWidth / pixelPerLocation);
      const height = Math.floor(spaceHeight / pixelPerLocation);
@@ -214,28 +214,32 @@
 
        placeGravityWell: function(xCenter, yCenter, mass) {
          const centerPoint = this.pixelToPoint(xCenter, yCenter);
-         const radius = Math.floor(mass / 10);
+         const radius = Math.floor(mass / 2);
+         console.log(`JPL: mass: ${mass}, radius: ${radius}`);
 
          const gravityStep = mass / radius;
          let gravity = mass / 100;
-         for (let r = 0; r < radius; r++, gravity += gravityStep) {
+         ///JPL: let gravity fade away more realistically
+         for (let r = 1; r < radius; r++, gravity = gravity - Math.sqrt(gravity)) {
            this.setMatrixGravityCircle(centerPoint, r, gravity);
-           break; ///JPL only do this once until we're drawing a circle
          }
        },
 
        setMatrixGravityCircle(centerPoint, radius, gravity) {
-         const x = centerPoint[0];
-         const y = centerPoint[1];
-         const g = gravity;
-         this.adjustMatrixGravityAt(x    , y - 1,  0, +g); // top
-         this.adjustMatrixGravityAt(x + 1, y - 1, -g, +g); // top right
-         this.adjustMatrixGravityAt(x + 1, y    , -g,  0); // right
-         this.adjustMatrixGravityAt(x + 1, y + 1, -g, -g); // bottom right
-         this.adjustMatrixGravityAt(x    , y + 1,  0, -g); // bottom
-         this.adjustMatrixGravityAt(x - 1, y + 1, +g, -g); // bottom left
-         this.adjustMatrixGravityAt(x - 1, y    , +g,  0); // left
-         this.adjustMatrixGravityAt(x - 1, y - 1, +g, +g); // top left
+         const h = centerPoint[0];
+         const k = centerPoint[1];
+
+         const step = 2 * Math.PI / 20;
+         const r = radius;
+
+         for(let theta = 0;  theta < 2 * Math.PI; theta += step) {
+           const x = Math.ceil(h + r * Math.cos(theta));
+           const y = Math.ceil(k - r * Math.sin(theta));
+
+           const xGravity = 0.1;
+           const yGravity = 0.1;
+           this.adjustMatrixGravityAt(x , y,  xGravity, yGravity);
+         }
        },
 
        adjustMatrixGravityAt: function(px, py, dx, dy) {
