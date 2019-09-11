@@ -233,13 +233,10 @@
          this.adjustMatrixGravityAt(x - 1, y + 1, -g,  g); // bottom left
          this.adjustMatrixGravityAt(x - 1, y    , +g,  0); // left
          this.adjustMatrixGravityAt(x - 1, y - 1, +g, +g); // top left
-         console.log(this.xMatrix);
-         console.log(this.yMatrix);
        },
 
        adjustMatrixGravityAt: function(px, py, dx, dy) {
          const divisor = dx && dy ? 2 : 1;
-         console.log(dx, dy, divisor);
          this.xMatrix[px][py] += dx / divisor;
          this.yMatrix[px][py] += dy / divisor;
        },
