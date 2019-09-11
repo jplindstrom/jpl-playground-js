@@ -162,7 +162,7 @@
 
 
    function Field(spaceWidth, spaceHeight) {
-     const pixelPerLocation = 10;
+     const pixelPerLocation = 20;
 
      const width = Math.floor(spaceWidth / pixelPerLocation);
      const height = Math.floor(spaceHeight / pixelPerLocation);
@@ -224,9 +224,9 @@
          const x = centerPoint[0];
          const y = centerPoint[1];
          const g = gravity;
-         this.adjustMatrixGravityAt(x    , y - 1,  0, -g); // top
+         this.adjustMatrixGravityAt(x    , y - 1,  0, +g); // top
          this.adjustMatrixGravityAt(x + 1, y    , -g,  0); // right
-         this.adjustMatrixGravityAt(x    , y + 1,  0, +g); // bottom
+         this.adjustMatrixGravityAt(x    , y + 1,  0, -g); // bottom
          this.adjustMatrixGravityAt(x - 1, y    , +g,  0); // left
          console.log(this.xMatrix);
          console.log(this.yMatrix);
