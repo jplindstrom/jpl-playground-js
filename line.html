@@ -214,7 +214,10 @@
 
        placeGravityWell: function(xCenter, yCenter, mass) {
          const centerPoint = this.pixelToPoint(xCenter, yCenter);
-         const radius = Math.max(2, Math.floor(mass * this.pixelPerLocation / 10));
+         const radius = Math.max(
+           2,
+           Math.floor(mass * this.pixelPerLocation / 6), ///JPL: 10
+         );
          // console.log(`JPL: mass: ${mass}, radius: ${radius}`);
 
          const gravityStep = mass / radius;
