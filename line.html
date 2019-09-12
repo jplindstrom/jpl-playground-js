@@ -19,7 +19,7 @@
 
    // http://slicker.me/javascript/particles.htm inspired me to do this
 
-   function Space(id, starCount = 100, maxDistance = 100) {
+   function Space(id, starCount = 100, maxDistance = 100, blackHoleGravity = 10) {
 
      const canvas = document.getElementById(id);
      const c = canvas.getContext("2d");
@@ -28,7 +28,7 @@
      const height = canvas.height;
 
      const field = new Field(width, height);
-     field.placeGravityWell(width / 2, height / 2, 10);
+     field.placeGravityWell(width / 2, height / 2, blackHoleGravity);
 
      const stars = Array(starCount).fill().map(
        () => new Star(
@@ -294,8 +294,8 @@
 
 
    const galaxies = [
-     new Space("andromeda", 3, 20),
-     new Space("milky", 20, 50),
+     new Space("andromeda", 3, 20, 5),
+     new Space("milky", 20, 50, 10),
    ];
 
    function passTime() {
