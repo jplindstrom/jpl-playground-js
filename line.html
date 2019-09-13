@@ -289,7 +289,7 @@
          const pixelCount = this.pixelPerLocation;
          const x = px * pixelCount;
          const y = py * pixelCount;
-         const opacity = Math.min(gravitySize / 2, 0.6);
+         const opacity = Math.min(gravitySize / 4, 0.6);
          space.c.fillStyle = `rgba(255, 255, 255, ${opacity})`;
          space.c.fillRect(x, y, pixelCount, pixelCount);
 
