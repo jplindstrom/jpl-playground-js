@@ -61,6 +61,10 @@
        recreateField: function() {
          this.field = new Field(this.width, this.height);
          this.field.placeGravityWell(width / 2, height / 2, this.blackHoleGravity);
+
+         /* for (let star of stars) {
+          *   this.field.placeGravityWell(star.x, star.y, star.mass);
+          * } */
        },
 
        draw: function() {
