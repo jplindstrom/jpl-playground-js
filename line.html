@@ -59,7 +59,10 @@
        },
 
        recreateField: function() {
-         this.field = new Field(this.width, this.height);
+         this.field = new Field({
+           spaceWidth: this.width,
+           spaceHeight: this.height,
+         });
          this.field.placeGravityWell(
            Math.ceil((width  / 2) - (this.field.pixelPerLocation / 2)),
            Math.ceil((height / 2) - (this.field.pixelPerLocation / 2)),
@@ -180,7 +183,7 @@
    }
 
 
-   function Field(spaceWidth, spaceHeight) {
+   function Field({ spaceWidth, spaceHeight }) {
      const pixelPerLocation = 10;
 
      const width = Math.floor(spaceWidth / pixelPerLocation);
