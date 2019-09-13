@@ -287,12 +287,15 @@
 
        drawGravitySize: function(px, py, gravitySize, space) {
          const pixelCount = this.pixelPerLocation;
+
+         // Draw strength background
          const x = px * pixelCount;
          const y = py * pixelCount;
          const opacity = Math.min(gravitySize / 4, 0.6);
          space.c.fillStyle = `rgba(255, 255, 255, ${opacity})`;
          space.c.fillRect(x, y, pixelCount, pixelCount);
 
+         // Draw vector line
          const xCenter = x + (pixelCount / 2);
          const yCenter = y + (pixelCount / 2);
          const dx = this.xMatrix[px][py] * 100;
