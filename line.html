@@ -28,10 +28,10 @@
      const height = canvas.height;
 
      const stars = Array(starCount).fill().map(
-       () => new Star(
-         Math.floor(Math.random() * width),
-         Math.floor(Math.random() * height),
-       ),
+       () => new Star({
+         x: Math.floor(Math.random() * width),
+         y: Math.floor(Math.random() * height),
+       }),
      );
 
      return {
@@ -124,7 +124,9 @@
      };
    }
 
-   function Star(x, y, color = 'rgb(200, 200, 200)', mass) {
+   function Star({ x, y, color, mass }) {
+     color = color || 'rgb(200, 200, 200)';
+
      const randomD = function() {
        const d = ((Math.random() - 0.5) * 0.7);
        return d;
