@@ -27,9 +27,6 @@
      const width = canvas.width;
      const height = canvas.height;
 
-     const field = new Field(width, height);
-     field.placeGravityWell(width / 2, height / 2, blackHoleGravity);
-
      const stars = Array(starCount).fill().map(
        () => new Star(
          Math.floor(Math.random() * width),
@@ -44,9 +41,12 @@
        width: width,
        height: height,
        maxDistance: maxDistance,
-       field: field,
+       field: null,
+       blackHoleGravity: blackHoleGravity,
 
        passTime: function() {
+         this.recreateField();
+
          for (let star of this.stars) {
            star.changeSpeed(this.field);
          }
@@ -56,6 +56,11 @@
          }
 
          this.draw();
+       },
+
+       recreateField: function() {
+         this.field = new Field(this.width, this.height);
+         this.field.placeGravityWell(width / 2, height / 2, this.blackHoleGravity);
        },
 
        draw: function() {
