@@ -27,6 +27,7 @@
      drawStarTail = true,
      drawStarsLine = true,
      drawFieldVector = true,
+     drawFieldStrength = true,
    }) {
 
      const canvas = document.getElementById(id);
@@ -54,6 +55,7 @@
        blackHoleGravity: blackHoleGravity,
        drawStarsLine: drawStarsLine,
        drawFieldVector: drawFieldVector,
+       drawFieldStrength: drawFieldStrength,
 
        passTime: function() {
          this.recreateField();
@@ -74,6 +76,7 @@
            spaceWidth: this.width,
            spaceHeight: this.height,
            drawVector: this.drawFieldVector,
+           drawStrength: this.drawFieldStrength,
          });
          this.field.placeGravityWell(
            Math.ceil((width  / 2) - (this.field.pixelPerLocation / 2)),
@@ -200,7 +203,12 @@
    }
 
 
-   function Field({ spaceWidth, spaceHeight, drawVector = true }) {
+   function Field({
+     spaceWidth,
+     spaceHeight,
+     drawVector = true,
+     drawStrength = true,
+   }) {
      const pixelPerLocation = 10;
 
      const width = Math.floor(spaceWidth / pixelPerLocation);
@@ -224,6 +232,7 @@
        yMatrix: yMatrix,
        pixelPerLocation: pixelPerLocation,
        drawVector: drawVector,
+       drawStrength: drawStrength,
 
        newMatrix: newMatrix,
 
@@ -322,10 +331,11 @@
          const y = py * pixelCount;
 
          // Draw strength background
-         ///JPL: reinstate?
-         /* const opacity = Math.min(gravitySize / 4, 0.6);
-          * space.c.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-          * space.c.fillRect(x, y, pixelCount, pixelCount); */
+         if (this.drawStrength) {
+           const opacity = Math.min(gravitySize / 4, 0.6);
+           space.c.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+           space.c.fillRect(x, y, pixelCount, pixelCount);
+         }
 
          // Draw vector line
          if (this.drawVector) {
@@ -357,6 +367,7 @@
        drawStarTail: false,
        drawStarsLine: false,
        drawFieldVector: false,
+       drawFieldStrength: false,
      }),
    ];
 
