@@ -26,6 +26,7 @@
      blackHoleGravity = 10,
      drawStarTail = true,
      drawStarsLine = true,
+     drawFieldVector = true,
    }) {
 
      const canvas = document.getElementById(id);
@@ -52,6 +53,7 @@
        field: null,
        blackHoleGravity: blackHoleGravity,
        drawStarsLine: drawStarsLine,
+       drawFieldVector: drawFieldVector,
 
        passTime: function() {
          this.recreateField();
@@ -71,6 +73,7 @@
          this.field = new Field({
            spaceWidth: this.width,
            spaceHeight: this.height,
+           drawVector: this.drawFieldVector,
          });
          this.field.placeGravityWell(
            Math.ceil((width  / 2) - (this.field.pixelPerLocation / 2)),
@@ -147,7 +150,7 @@
      };
      const dx = randomD();
      const dy = randomD();
-     mass = mass || (Math.random() * 5) + 3;
+     mass = mass || (Math.random() * 5) + 2;
      return {
        x: x,
        y: y,
@@ -197,7 +200,7 @@
    }
 
 
-   function Field({ spaceWidth, spaceHeight }) {
+   function Field({ spaceWidth, spaceHeight, drawVector = true }) {
      const pixelPerLocation = 10;
 
      const width = Math.floor(spaceWidth / pixelPerLocation);
@@ -220,6 +223,7 @@
        xMatrix: xMatrix,
        yMatrix: yMatrix,
        pixelPerLocation: pixelPerLocation,
+       drawVector: drawVector,
 
        newMatrix: newMatrix,
 
@@ -324,12 +328,13 @@
           * space.c.fillRect(x, y, pixelCount, pixelCount); */
 
          // Draw vector line
-         const xCenter = x + (pixelCount / 2);
-         const yCenter = y + (pixelCount / 2);
-         const dx = this.xMatrix[px][py] * 100;
-         const dy = this.yMatrix[px][py] * 100;
-
-         space.drawLine(xCenter, yCenter, xCenter + dx, yCenter + dy, 'rgb(40, 40, 40)');
+         if (this.drawVector) {
+           const xCenter = x + (pixelCount / 2);
+           const yCenter = y + (pixelCount / 2);
+           const dx = this.xMatrix[px][py] * 100;
+           const dy = this.yMatrix[px][py] * 100;
+           space.drawLine(xCenter, yCenter, xCenter + dx, yCenter + dy, 'rgb(40, 40, 40)');
+         }
        }
 
      };
@@ -346,11 +351,12 @@
      }),
      new Space({
        id: "milky",
-       starCount: 20,
+       starCount: 800,
        maxDistance: 60,
        blackHoleGravity: 0,
        drawStarTail: false,
        drawStarsLine: false,
+       drawFieldVector: false,
      }),
    ];
 
