@@ -263,6 +263,9 @@
            const x = Math.ceil(h + gx);
            const y = Math.ceil(k - gy);
 
+           // No effect on the point the thing is on, so stars don't affect themselves
+           if (x === h && y === k) continue;
+
            // Point back to centerPoint
            const xGravity = -gx * gravity;
            const yGravity =  gy * gravity;
