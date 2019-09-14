@@ -19,7 +19,7 @@
 
    // http://slicker.me/javascript/particles.htm inspired me to do this
 
-   function Space({ id, starCount = 100, maxDistance = 100, blackHoleGravity = 10 }) {
+   function Space({ id, starCount = 100, maxDistance = 100, blackHoleGravity = 10, drawStarTail = true }) {
 
      const canvas = document.getElementById(id);
      const c = canvas.getContext("2d");
@@ -31,6 +31,7 @@
        () => new Star({
          x: Math.floor(Math.random() * width),
          y: Math.floor(Math.random() * height),
+         drawTail: drawStarTail,
        }),
      );
 
@@ -127,7 +128,7 @@
      };
    }
 
-   function Star({ x, y, color, mass }) {
+   function Star({ x, y, color, mass, drawTail }) {
      color = color || 'rgb(200, 200, 200)';
 
      const randomD = function() {
@@ -136,7 +137,7 @@
      };
      const dx = randomD();
      const dy = randomD();
-     mass = mass || (Math.random() * 6) + 2;
+     mass = mass || (Math.random() * 5) + 3;
      return {
        x: x,
        y: y,
@@ -144,6 +145,7 @@
        dx: dx,
        dy: dy,
        mass: mass,
+       drawTail: drawTail,
 
        move: function(space) {
          this.x = this.moveDimension(this.x, this.dx, space.width);
@@ -163,8 +165,10 @@
          const sizeOffset = size / 2;
          space.c.fillRect(this.x - sizeOffset, this.y - sizeOffset, size, size);
 
-         const tailPoint = this.tailPoint();
-         space.drawLine(this.x, this.y, tailPoint.x, tailPoint.y);
+         if (this.drawTail) {
+           const tailPoint = this.tailPoint();
+           space.drawLine(this.x, this.y, tailPoint.x, tailPoint.y);
+         }
        },
 
        tailPoint: function() {
@@ -333,8 +337,9 @@
      new Space({
        id: "milky",
        starCount: 20,
-       maxDistance: 40,
+       maxDistance: 60,
        blackHoleGravity: 0,
+       drawStarTail: false,
      }),
    ];
 
