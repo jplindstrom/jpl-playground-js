@@ -288,8 +288,8 @@
            const gx = r * Math.cos(theta);
            const gy = r * Math.sin(theta);
            // Not sure why the adjustment does
-           const x = Math.ceil(h + gx + 0.15);
-           const y = Math.ceil(k - gy + 0.15);
+           const x = Math.ceil(h + gx - 0.25);
+           const y = Math.ceil(k - gy - 0.25);
 
            // No effect on the point the thing is on, so stars don't affect themselves
            if (x === h && y === k) continue;
