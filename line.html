@@ -287,8 +287,9 @@
          for(let theta = 0;  theta < 2 * Math.PI; theta += step) {
            const gx = r * Math.cos(theta);
            const gy = r * Math.sin(theta);
-           const x = Math.ceil(h + gx);
-           const y = Math.ceil(k - gy);
+           // Not sure why the adjustment does
+           const x = Math.ceil(h + gx + 0.15);
+           const y = Math.ceil(k - gy + 0.15);
 
            // No effect on the point the thing is on, so stars don't affect themselves
            if (x === h && y === k) continue;
