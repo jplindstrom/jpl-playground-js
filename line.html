@@ -54,16 +54,24 @@
 
    // http://slicker.me/javascript/particles.htm inspired me to do this
 
+
    function Simulation({ id, space }) {
-     const container = document.querySelector(`#${id} .submit-simulation`);
-     if (!container) {
-       console.log.error("No id found");
+     const submitButton = document.querySelector(`#${id} .submit-simulation`);
+     if (!submitButton) {
+       console.log.error("No button found");
        return null;
      }
 
-     return {
-       id: id,
-       space: space,
+     const self = this;
+     submitButton.addEventListener(
+       "click", function(e) { return self.eventSubmitClick(e); },
+     );
+
+     this.id = id;
+     this.space = space;
+
+     this.eventSubmitClick = function(e) {
+       return false;
      };
    }
 
