@@ -14,8 +14,8 @@
      color: #999;
    }
 
-   .control-panel {
-     float: right;
+   .space-viewport {
+     float: left;
    }
 
    .space-simulation form ul {
@@ -53,6 +53,11 @@
   <body>
     <div id="milky-simulation" class="space-simulation">
       <div>
+
+        <div class="space-viewport">
+          <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
+        </div>
+
         <div class="control-panel">
           <form>
             <p><b>Field</b></p>
@@ -72,10 +77,6 @@
             <br />
             <button class="restart-simulation">Restart stars</button>
           </form>
-        </div>
-
-        <div>
-          <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
         </div>
 
       </div>
