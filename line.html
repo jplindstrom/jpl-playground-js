@@ -71,8 +71,12 @@
 
      this.eventSubmitClick = function(e) {
        const value = starCountInput.value;
-       ///JPL: validate positive int
-       this.space.starCount = value;
+       const count = parseInt(value, 10);
+       if (isNaN(count)) {
+         ///JPL: update field to starCount
+         return false;
+       }
+       this.space.starCount = count;
        event.preventDefault();
        return false;
      };
