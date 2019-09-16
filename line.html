@@ -56,21 +56,24 @@
 
 
    function Simulation({ id, space }) {
-     const submitButton = document.querySelector(`#${id} .submit-simulation`);
-     if (!submitButton) {
-       console.log.error("No button found");
-       return null;
-     }
+     const topElement = document.querySelector(`#${id}`);
+     const submitButton = topElement.querySelector(`#${id} .submit-simulation`);
+     const starCountInput = topElement.querySelector(`input[name="starCount"]`);
 
      const self = this;
      submitButton.addEventListener(
-       "click", function(e) { return self.eventSubmitClick(e); },
+       "click", function(e) { return self.eventSubmitClick(e); return false; },
      );
 
+     // Construct object
      this.id = id;
      this.space = space;
 
      this.eventSubmitClick = function(e) {
+       const value = starCountInput.value;
+       ///JPL: validate positive int
+       this.space.starCount = value;
+       event.preventDefault();
        return false;
      };
    }
@@ -93,16 +96,9 @@
      const width = canvas.width;
      const height = canvas.height;
 
-     const stars = Array(starCount).fill().map(
-       () => new Star({
-         x: Math.floor(Math.random() * width),
-         y: Math.floor(Math.random() * height),
-         drawTail: drawStarTail,
-       }),
-     );
-
      return {
-       stars: stars,
+       starCount: starCount,
+       stars: [],
        canvas: canvas,
        c: c,
        width: width,
@@ -115,6 +111,8 @@
        drawFieldStrength: drawFieldStrength,
 
        passTime: function() {
+         this.ensureStarCount();
+
          this.recreateField();
 
          for (let star of this.stars) {
@@ -126,6 +124,18 @@
          }
 
          this.draw();
+       },
+
+       ensureStarCount: function() {
+         if (this.stars.length != this.starCount) {
+           this.stars = Array(this.starCount).fill().map(
+             () => new Star({
+               x: Math.floor(Math.random() * this.width),
+               y: Math.floor(Math.random() * this.height),
+               drawTail: this.drawStarTail,
+             }),
+           );
+         }
        },
 
        recreateField: function() {
@@ -141,7 +151,7 @@
            this.blackHoleGravity,
          );
 
-         for (let star of stars) {
+         for (let star of this.stars) {
            this.field.placeGravityWell(star.x, star.y, star.mass);
          }
        },
