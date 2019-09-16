@@ -134,14 +134,20 @@
        },
 
        ensureStarCount: function() {
-         if (this.stars.length != this.starCount) {
-           this.stars = Array(this.starCount).fill().map(
-             () => new Star({
-               x: Math.floor(Math.random() * this.width),
-               y: Math.floor(Math.random() * this.height),
-               drawTail: this.drawStarTail,
-             }),
+         const missingCount = this.starCount - this.stars.length;
+         if (missingCount > 0) {
+           this.stars.push(
+             ... Array(missingCount).fill().map(
+               () => new Star({
+                 x: Math.floor(Math.random() * this.width),
+                 y: Math.floor(Math.random() * this.height),
+                 drawTail: this.drawStarTail,
+               }),
+             )
            );
+         }
+         else if (missingCount < 0) {
+           Array.from({ length: -missingCount }).forEach( () => this.stars.pop() );
          }
        },
 
