@@ -45,6 +45,10 @@
     <div id="milky-simulation" class="space-simulation">
       <div>
         <form>
+          <b>Field</b>:
+          <label><input type="checkbox" name="drawFieldVector">Vector</label>
+
+          <br />
           <b>Star</b>: count <input name="starCount" />
           <label><input type="checkbox" name="drawStarTail">Tail</label>
 
@@ -75,6 +79,7 @@
      const submitButton = topElement.querySelector(`#${id} .submit-simulation`);
      const starCountInput = topElement.querySelector(`input[name="starCount"]`);
      const drawStarTailCheckbox = topElement.querySelector(`input[name="drawStarTail"]`);
+     const drawFieldVectorCheckbox = topElement.querySelector(`input[name="drawFieldVector"]`);
 
      const self = this;
      submitButton.addEventListener(
@@ -99,6 +104,9 @@
 
        const drawStarTail = !! drawStarTailCheckbox.checked;
        this.space.setDrawStarTail(drawStarTail);
+
+       const drawFieldVector = !! drawFieldVectorCheckbox.checked;
+       this.space.drawFieldVector = drawFieldVector;
 
        return false;
      };
