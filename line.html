@@ -48,6 +48,7 @@
           <b>Field</b>:
           <label><input type="checkbox" name="drawFieldVector" checked>Vector</label>
           <label><input type="checkbox" name="drawFieldStrength">Strength</label>
+          <label><input type="checkbox" name="drawStarsLine">Star Line</label>
 
           <br />
           <b>Star</b>: count <input name="starCount" />
@@ -82,6 +83,7 @@
      const drawStarTailCheckbox = topElement.querySelector(`input[name="drawStarTail"]`);
      const drawFieldVectorCheckbox = topElement.querySelector(`input[name="drawFieldVector"]`);
      const drawFieldStrengthCheckbox = topElement.querySelector(`input[name="drawFieldStrength"]`);
+     const drawStarsLineCheckbox = topElement.querySelector(`input[name="drawStarsLine"]`);
 
      const self = this;
      submitButton.addEventListener(
@@ -112,6 +114,9 @@
 
        const drawFieldStrength = !! drawFieldStrengthCheckbox.checked;
        this.space.drawFieldStrength = drawFieldStrength;
+
+       const drawStarsLine = !! drawStarsLineCheckbox.checked;
+       this.space.setDrawStarsLine(drawStarsLine);
 
        return false;
      };
@@ -186,6 +191,14 @@
        setDrawStarTail: function(value) {
          this.drawStarTail = value;
          this.stars.forEach((star) => star.setDrawTail(value));
+       },
+
+       setDrawStarsLine: function(value) {
+         //TODO: remove limitation after optimising the O(n**2) stars line
+         if (this.starCount > 300) {
+           value = false;
+         }
+         this.drawStarsLine = value;
        },
 
        recreateField: function() {
