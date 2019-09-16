@@ -46,9 +46,8 @@
       <div>
         <form>
           Star count: <input name="starCount" />
-          <label>
-            <input type="checkbox" name="drawStarTail"> Star tail
-          </label>
+          <label><input type="checkbox" name="drawStarTail">Star tail</label>
+
           <button class="submit-simulation">Submit</button>
 
         </form>
@@ -74,6 +73,7 @@
      const topElement = document.querySelector(`#${id}`);
      const submitButton = topElement.querySelector(`#${id} .submit-simulation`);
      const starCountInput = topElement.querySelector(`input[name="starCount"]`);
+     const drawStarTailCheckbox = topElement.querySelector(`input[name="drawStarTail"]`);
 
      const self = this;
      submitButton.addEventListener(
@@ -87,15 +87,18 @@
      this.eventSubmitClick = function(e) {
        event.preventDefault();
 
-       const value = starCountInput.value;
-       const count = parseInt(value, 10);
-       if (isNaN(count)) {
-         console.log
+       const starCountInputValue = starCountInput.value;
+       const starCount = parseInt(starCountInputValue , 10);
+       if (isNaN(starCount)) {
          starCountInput.value = this.space.starCount;
-         return false;
+       }
+       else {
+         this.space.starCount = starCount;
        }
 
-       this.space.starCount = count;
+       const drawStarTail = !! drawStarTailCheckbox.checked;
+       this.space.setDrawStarTail(drawStarTail);
+
        return false;
      };
    }
@@ -164,6 +167,11 @@
          else if (missingCount < 0) {
            Array.from({ length: -missingCount }).forEach( () => this.stars.pop() );
          }
+       },
+
+       setDrawStarTail: function(value) {
+         this.drawStarTail = value;
+         this.stars.forEach((star) => star.setDrawTail(value));
        },
 
        recreateField: function() {
@@ -294,6 +302,10 @@
          this.dx += field.xInfluence(point, this.mass);
          this.dy += field.yInfluence(point, this.mass);
        },
+
+       setDrawTail: function(value) {
+         this.drawTail = value;
+       }
      };
    }
 
