@@ -14,6 +14,15 @@
      color: #999;
    }
 
+   .control-panel {
+     float: right;
+   }
+
+   .space-simulation form ul {
+     list-style-type: none;
+     padding-left: 0
+   }
+
    .space-simulation form input {
      background: #000;
      font-size: 1em;
@@ -44,26 +53,31 @@
   <body>
     <div id="milky-simulation" class="space-simulation">
       <div>
-        <form>
-          <b>Field</b>:
-          <label><input type="checkbox" name="drawFieldVector" checked>Vector</label>
-          <label><input type="checkbox" name="drawFieldStrength">Strength</label>
-          <label><input type="checkbox" name="drawStarsLine">Star Line</label>
+        <div class="control-panel">
+          <form>
+            <p><b>Field</b></p>
+            <ul>
+              <li><label><input type="checkbox" name="drawFieldVector" checked>Vector</label></li>
+              <li><label><input type="checkbox" name="drawFieldStrength">Strength</label></li>
+              <li><label><input type="checkbox" name="drawStarsLine">Star Line</label></li>
+            </ul>
 
-          <br />
-          <b>Star</b>: count <input name="starCount" autocomplete="off" />
-          <label><input type="checkbox" name="drawStarTail" checked>Tail</label>
+            <p><b>Star</b></p>
+            <ul>
+              <li>Count <input name="starCount" autocomplete="off" /> </li>
+              <li><label><input type="checkbox" name="drawStarTail" checked>Tail</label></li>
+            </ul>
 
-          <br />
-          <button class="submit-simulation">Submit</button>
-          <br />
-          <button class="restart-simulation">Restart stars</button>
+            <button class="submit-simulation">Submit</button>
+            <br />
+            <button class="restart-simulation">Restart stars</button>
+          </form>
+        </div>
 
+        <div>
+          <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
+        </div>
 
-        </form>
-      </div>
-      <div>
-        <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
       </div>
     </div>
 
