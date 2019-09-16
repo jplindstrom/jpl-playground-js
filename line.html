@@ -45,9 +45,6 @@
     <div id="milky-simulation" class="space-simulation">
       <div>
         <form>
-          <button class="restart-simulation">Restart stars</button>
-          <br />
-
           <b>Field</b>:
           <label><input type="checkbox" name="drawFieldVector" checked>Vector</label>
           <label><input type="checkbox" name="drawFieldStrength">Strength</label>
@@ -55,10 +52,13 @@
 
           <br />
           <b>Star</b>: count <input name="starCount" autocomplete="off" />
-          <label><input type="checkbox" name="drawStarTail">Tail</label>
+          <label><input type="checkbox" name="drawStarTail" checked>Tail</label>
 
           <br />
           <button class="submit-simulation">Submit</button>
+          <br />
+          <button class="restart-simulation">Restart stars</button>
+
 
         </form>
       </div>
