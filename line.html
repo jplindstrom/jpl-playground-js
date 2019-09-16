@@ -21,6 +21,18 @@
      width: 4em;
      border-width: 1px;
    }
+   .space-simulation label {
+     vertical-align: middle;
+     display: inline-block;
+     margin-left: 0.5em;
+     margin-right: 0.7em;
+   }
+   .space-simulation form input[type="checkbox"] {
+     vertical-align: middle;
+     width: auto;
+     /* margin-bottom: 0
+        margin-top: 0.2em; */
+   }
    .space-simulation form button {
      background: #000;
      font-size: 1em;
@@ -34,6 +46,9 @@
       <div>
         <form>
           Star count: <input name="starCount" />
+          <label>
+            <input type="checkbox" name="drawStarTail"> Star tail
+          </label>
           <button class="submit-simulation">Submit</button>
 
         </form>
