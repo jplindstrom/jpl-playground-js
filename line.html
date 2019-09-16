@@ -62,7 +62,7 @@
 
      const self = this;
      submitButton.addEventListener(
-       "click", function(e) { return self.eventSubmitClick(e); return false; },
+       "click", function(e) { return self.eventSubmitClick(e); },
      );
 
      // Construct object
@@ -70,14 +70,17 @@
      this.space = space;
 
      this.eventSubmitClick = function(e) {
+       event.preventDefault();
+
        const value = starCountInput.value;
        const count = parseInt(value, 10);
        if (isNaN(count)) {
-         ///JPL: update field to starCount
+         console.log
+         starCountInput.value = this.space.starCount;
          return false;
        }
+
        this.space.starCount = count;
-       event.preventDefault();
        return false;
      };
    }
