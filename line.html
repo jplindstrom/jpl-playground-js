@@ -46,7 +46,8 @@
       <div>
         <form>
           <b>Field</b>:
-          <label><input type="checkbox" name="drawFieldVector">Vector</label>
+          <label><input type="checkbox" name="drawFieldVector" checked>Vector</label>
+          <label><input type="checkbox" name="drawFieldStrength">Strength</label>
 
           <br />
           <b>Star</b>: count <input name="starCount" />
@@ -80,6 +81,7 @@
      const starCountInput = topElement.querySelector(`input[name="starCount"]`);
      const drawStarTailCheckbox = topElement.querySelector(`input[name="drawStarTail"]`);
      const drawFieldVectorCheckbox = topElement.querySelector(`input[name="drawFieldVector"]`);
+     const drawFieldStrengthCheckbox = topElement.querySelector(`input[name="drawFieldStrength"]`);
 
      const self = this;
      submitButton.addEventListener(
@@ -107,6 +109,9 @@
 
        const drawFieldVector = !! drawFieldVectorCheckbox.checked;
        this.space.drawFieldVector = drawFieldVector;
+
+       const drawFieldStrength = !! drawFieldStrengthCheckbox.checked;
+       this.space.drawFieldStrength = drawFieldStrength;
 
        return false;
      };
