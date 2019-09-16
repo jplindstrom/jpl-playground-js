@@ -10,7 +10,7 @@
 
    .space-simulation {
      font-face: "Arial";
-     font-size: 0.6em;
+     font-size: 0.7em;
      color: #999;
    }
 
@@ -21,13 +21,21 @@
      width: 4em;
      border-width: 1px;
    }
+   .space-simulation form button {
+     background: #000;
+     font-size: 1em;
+     color: #999;
+     border-width: 1px;
+   }
   </style>
 
   <body>
     <div id="milky-simulation" class="space-simulation">
       <div>
         <form>
-          Star count: <input name="starCount"> </form>
+          Star count: <input name="starCount" />
+          <button class="submit-simulation">Submit</button>
+
         </form>
       </div>
       <div>
@@ -45,6 +53,20 @@
    "use strict";
 
    // http://slicker.me/javascript/particles.htm inspired me to do this
+
+   function Simulation({ id, space }) {
+     const container = document.querySelector(`#${id} .submit-simulation`);
+     if (!container) {
+       console.log.error("No id found");
+       return null;
+     }
+
+     return {
+       id: id,
+       space: space,
+     };
+   }
+
 
    function Space({
      id,
@@ -380,28 +402,35 @@
 
 
 
-   const galaxies = [
+   const milkySpace = new Space({
+     id: "milky",
+     starCount: 30,
+     blackHoleGravity: 0,
+     drawStarTail: true,
+     drawStarsLine: true,
+     maxDistance: 60,
+     drawFieldVector: true,
+     drawFieldStrength: false
+   });
+   const milkySimulation = new Simulation({
+     id: "milky-simulation",
+     space: milkySpace,
+   });
+
+
+   const spaces = [
      new Space({
        id: "andromeda",
        starCount: 4,
        maxDistance: 20,
        blackHoleGravity: 4,
      }),
-     new Space({
-       id: "milky",
-       starCount: 30,
-       blackHoleGravity: 0,
-       drawStarTail: true,
-       drawStarsLine: true,
-       maxDistance: 60,
-       drawFieldVector: true,
-       drawFieldStrength: false
-     }),
+     milkySpace,
    ];
 
    function passTime() {
-     for (let galaxy of galaxies) {
-       galaxy.passTime();
+     for (let space of spaces) {
+       space.passTime();
      }
 
      window.requestAnimationFrame(passTime);
