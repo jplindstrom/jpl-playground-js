@@ -45,6 +45,9 @@
     <div id="milky-simulation" class="space-simulation">
       <div>
         <form>
+          <button class="restart-simulation">Restart</button>
+          <br />
+
           <b>Field</b>:
           <label><input type="checkbox" name="drawFieldVector" checked>Vector</label>
           <label><input type="checkbox" name="drawFieldStrength">Strength</label>
@@ -79,6 +82,7 @@
    function Simulation({ id, space }) {
      const topElement = document.querySelector(`#${id}`);
      const submitButton = topElement.querySelector(`#${id} .submit-simulation`);
+     const restartButton = topElement.querySelector(`#${id} .restart-simulation`);
      const starCountInput = topElement.querySelector(`input[name="starCount"]`);
      const drawStarTailCheckbox = topElement.querySelector(`input[name="drawStarTail"]`);
      const drawFieldVectorCheckbox = topElement.querySelector(`input[name="drawFieldVector"]`);
@@ -88,6 +92,9 @@
      const self = this;
      submitButton.addEventListener(
        "click", function(e) { return self.eventSubmitClick(e); },
+     );
+     restartButton.addEventListener(
+       "click", function(e) { return self.eventRestartClick(e); },
      );
 
      // Construct object
@@ -120,6 +127,15 @@
 
        return false;
      };
+
+     this.eventRestartClick = function(e) {
+       event.preventDefault();
+
+       this.space.restartStars();
+
+       return false;
+     }
+
    }
 
 
@@ -168,6 +184,10 @@
          }
 
          this.draw();
+       },
+
+       restartStars: function() {
+         this.stars = [];
        },
 
        ensureStarCount: function() {
