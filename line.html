@@ -70,12 +70,10 @@
 
             <p><b>Star</b></p>
             <ul>
-              <li>Count <input name="starCount" autocomplete="off" /> </li>
+              <li>Count <input type="text" name="starCount" autocomplete="off" /> </li>
               <li><label><input type="checkbox" name="drawStarTail" checked>Tail</label></li>
             </ul>
 
-            <button class="submit-simulation">Submit</button>
-            <br />
             <button class="restart-simulation">Restart stars</button>
           </form>
         </div>
@@ -97,8 +95,8 @@
 
    function Simulation({ id, space }) {
      const topElement = document.querySelector(`#${id}`);
-     const submitButton = topElement.querySelector(`#${id} .submit-simulation`);
      const restartButton = topElement.querySelector(`#${id} .restart-simulation`);
+
      const starCountInput = topElement.querySelector(`input[name="starCount"]`);
      const drawStarTailCheckbox = topElement.querySelector(`input[name="drawStarTail"]`);
      const drawFieldVectorCheckbox = topElement.querySelector(`input[name="drawFieldVector"]`);
@@ -106,9 +104,17 @@
      const drawStarsLineCheckbox = topElement.querySelector(`input[name="drawStarsLine"]`);
 
      const self = this;
-     submitButton.addEventListener(
-       "click", function(e) { return self.eventSubmitClick(e); },
-     );
+     topElement.querySelectorAll(`input[type="checkbox"]`).forEach((element) => {
+       element.addEventListener(
+         "change", function(e) { return self.eventConfigChanged(e); },
+       );
+     });
+     topElement.querySelectorAll(`input[type="text"]`).forEach((element) => {
+       element.addEventListener(
+         "blur", function(e) { return self.eventConfigChanged(e); },
+       );
+     });
+
      restartButton.addEventListener(
        "click", function(e) { return self.eventRestartClick(e); },
      );
@@ -117,9 +123,7 @@
      this.id = id;
      this.space = space;
 
-     this.eventSubmitClick = function(e) {
-       event.preventDefault();
-
+     this.eventConfigChanged = function(e) {
        const starCountInputValue = starCountInput.value;
        const starCount = parseInt(starCountInputValue , 10);
        if (isNaN(starCount)) {
