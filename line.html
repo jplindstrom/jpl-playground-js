@@ -115,6 +115,9 @@
          "change", function(e) { return self.eventConfigChanged(e); }, false,
        );
      });
+     topElement.querySelectorAll(`form`).forEach((element) => {
+       element.addEventListener(
+         "submit", function(e) { return event.preventDefault(); return false }, false,
        );
      });
 
@@ -127,6 +130,8 @@
      this.space = space;
 
      this.eventConfigChanged = function(e) {
+       event.preventDefault();
+
        const starCountInputValue = starCountInput.value;
        const starCount = parseInt(starCountInputValue , 10);
        if (isNaN(starCount)) {
