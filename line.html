@@ -207,8 +207,9 @@
 
          this.recreateField();
 
+         const field = this.field;
          for (let star of this.stars) {
-           star.changeSpeed(this.field);
+           field.changeSpeed(star);
          }
 
          for (let star of this.stars) {
@@ -376,12 +377,6 @@
          };
        },
 
-       changeSpeed: function(field) {
-         const point = field.pixelToPoint(this.x, this.y);
-         this.dx += field.xInfluence(point, this.mass);
-         this.dy += field.yInfluence(point, this.mass);
-       },
-
        setDrawTail: function(value) {
          this.drawTail = value;
        }
@@ -500,6 +495,13 @@
          const dy = this.yMatrix[px][py];
          return Math.sqrt((dx ** 2) + (dy ** 2));
        },
+
+       changeSpeed: function(star) {
+         const point = this.pixelToPoint(star.x, star.y);
+         star.dx += this.xInfluence(point, star.mass);
+         star.dy += this.yInfluence(point, star.mass);
+       },
+
 
        draw: function(space) {
          for (let px = 0; px < this.width; px++) {
