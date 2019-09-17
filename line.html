@@ -70,6 +70,7 @@
             <ul>
               <li><label><input type="checkbox" name="drawFieldVector" checked>Vector</label></li>
               <li><label><input type="checkbox" name="drawFieldStrength">Strength</label></li>
+              <li><label><input type="checkbox" name="isFieldInverted">Inverted</label></li>
             </ul>
 
             <p><b>Star</b></p>
@@ -106,6 +107,7 @@
 
      const starCountInput = topElement.querySelector(`input[name="starCount"]`);
      const drawStarTailCheckbox = topElement.querySelector(`input[name="drawStarTail"]`);
+     const isFieldInvertedCheckbox = topElement.querySelector(`input[name="isFieldInverted"]`);
      const drawFieldVectorCheckbox = topElement.querySelector(`input[name="drawFieldVector"]`);
      const drawFieldStrengthCheckbox = topElement.querySelector(`input[name="drawFieldStrength"]`);
      const drawStarsLineCheckbox = topElement.querySelector(`input[name="drawStarsLine"]`);
@@ -154,6 +156,9 @@
        const drawFieldStrength = !! drawFieldStrengthCheckbox.checked;
        this.space.drawFieldStrength = drawFieldStrength;
 
+       const isFieldInverted = !! isFieldInvertedCheckbox.checked;
+       this.space.isFieldInverted = isFieldInverted;
+
        const drawStarsLine = !! drawStarsLineCheckbox.checked;
        this.space.setDrawStarsLine(drawStarsLine);
 
@@ -180,6 +185,7 @@
      drawStarsLine = true,
      drawFieldVector = true,
      drawFieldStrength = true,
+     isFieldInverted = false,
    }) {
 
      const canvas = document.getElementById(id);
@@ -201,6 +207,7 @@
        drawStarsLine: drawStarsLine,
        drawFieldVector: drawFieldVector,
        drawFieldStrength: drawFieldStrength,
+       isFieldInverted: isFieldInverted,
 
        passTime: function() {
          this.ensureStarCount();
@@ -260,6 +267,7 @@
            spaceHeight: this.height,
            drawVector: this.drawFieldVector,
            drawStrength: this.drawFieldStrength,
+           isInverted: this.isFieldInverted,
          });
          this.field.placeGravityWell(
            Math.ceil((width  / 2) - (this.field.pixelPerLocation / 2)),
@@ -553,7 +561,8 @@
      drawStarsLine: true,
      maxDistance: 60,
      drawFieldVector: true,
-     drawFieldStrength: false
+     drawFieldStrength: false,
+     isFieldInverted: false,
    });
    const milkySimulation = new Simulation({
      id: "milky-simulation",
