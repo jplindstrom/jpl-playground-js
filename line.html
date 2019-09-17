@@ -112,7 +112,9 @@
      });
      topElement.querySelectorAll(`input[type="text"]`).forEach((element) => {
        element.addEventListener(
-         "blur", function(e) { return self.eventConfigChanged(e); },
+         "change", function(e) { return self.eventConfigChanged(e); }, false,
+       );
+     });
        );
      });
 
