@@ -105,14 +105,9 @@
      const drawStarsLineCheckbox = topElement.querySelector(`input[name="drawStarsLine"]`);
 
      const self = this;
-     topElement.querySelectorAll(`input[type="checkbox"]`).forEach((element) => {
+     topElement.querySelectorAll(`input`).forEach((element) => {
        element.addEventListener(
          "change", function(e) { return self.eventConfigChanged(e); },
-       );
-     });
-     topElement.querySelectorAll(`input[type="text"]`).forEach((element) => {
-       element.addEventListener(
-         "change", function(e) { return self.eventConfigChanged(e); }, false,
        );
      });
      topElement.querySelectorAll(`form`).forEach((element) => {
