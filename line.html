@@ -389,6 +389,7 @@
      spaceHeight,
      drawVector = true,
      drawStrength = true,
+     isInverted = false,
    }) {
      const pixelPerLocation = 10;
 
@@ -416,6 +417,7 @@
        drawStrength: drawStrength,
 
        newMatrix: newMatrix,
+       isInverted: isInverted,
 
        resetMatrix: function() {
          this.xMatrix = newMatrix(1);
@@ -498,8 +500,9 @@
 
        changeSpeed: function(star) {
          const point = this.pixelToPoint(star.x, star.y);
-         star.dx += this.xInfluence(point, star.mass);
-         star.dy += this.yInfluence(point, star.mass);
+         const direction = this.isInverted ? -1 : 1;
+         star.dx += direction * this.xInfluence(point, star.mass);
+         star.dy += direction * this.yInfluence(point, star.mass);
        },
 
 
