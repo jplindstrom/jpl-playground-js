@@ -28,6 +28,9 @@
           <form>
             <button class="restart-simulation">Restart stars</button>
           </form>
+
+          <div>Total dx: <span class="displayTotalX"></span>
+          <div>Total dy: <span class="displayTotaly"></span>
         </div>
 
       </div>
@@ -66,6 +69,8 @@
    });
 
 
+   const simulations = [ milkySimulation ];
+
    const spaces = [
      new Space({
        id: "andromeda",
@@ -83,8 +88,12 @@
 
      window.requestAnimationFrame(passTime);
    }
-
    passTime();
+
+   function updateSimulations() {
+     simulations.forEach( simulation => simulation.passtime() );
+   }
+   setInterval(updateSimulations, 2000);
 
   </script>
 </html>
