@@ -91,7 +91,7 @@
    passTime();
 
    function updateSimulations() {
-     simulations.forEach( simulation => simulation.passtime() );
+     simulations.forEach( simulation => simulation.updateDisplay() );
    }
    setInterval(updateSimulations, 2000);
 
