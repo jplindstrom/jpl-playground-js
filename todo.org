@@ -1,5 +1,7 @@
 * Next
 ** DONE include js files
+** use setter attribute
+** proper constructors
 ** text field for snap
 ** basic bootstrap
 ** Vue? React?
