@@ -1,5 +1,8 @@
 <html>
-  <link rel="stylesheet" href="./line.css" />
+  <!-- http://slicker.me/javascript/particles.htm inspired me to do this -->
+  <head>
+    <link rel="stylesheet" href="./line.css" />
+  </head>
 
   <body>
     <div id="milky-simulation" class="space-simulation">
@@ -40,51 +43,5 @@
 
   </body>
 
-  <script src="./lib/simulation.js"></script>
-  <script src="./lib/space.js"></script>
-  <script src="./lib/field.js"></script>
-  <script src="./lib/star.js"></script>
-  <script>
-   "use strict";
-
-   // http://slicker.me/javascript/particles.htm inspired me to do this
-
-   const milkySpace = new Space({
-     id: "milky",
-     starCount: 25,
-     blackHoleGravity: 0,
-     drawStarTail: true,
-     drawStarsLine: true,
-     maxDistance: 60,
-     drawFieldVector: true,
-     drawFieldStrength: false,
-     isFieldInverted: false,
-   });
-   const milkySimulation = new Simulation({
-     id: "milky-simulation",
-     space: milkySpace,
-   });
-
-
-   const spaces = [
-     new Space({
-       id: "andromeda",
-       starCount: 4,
-       maxDistance: 20,
-       blackHoleGravity: 4,
-     }),
-     milkySpace,
-   ];
-
-   function passTime() {
-     for (let space of spaces) {
-       space.passTime();
-     }
-
-     window.requestAnimationFrame(passTime);
-   }
-
-   passTime();
-
-  </script>
+  <script src="./main.js" type="module"></script>
 </html>
