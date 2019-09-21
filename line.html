@@ -1,6 +1,10 @@
 <html>
-  <link rel="stylesheet" href="./line.css" />
+  <!-- http://slicker.me/javascript/particles.htm inspired me to start this -->
 
+  <head>
+    <link rel="stylesheet" href="./line.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
   <body>
     <div id="milky-simulation" class="space-simulation">
       <div>
@@ -49,8 +53,6 @@
   <script src="./lib/star.js"></script>
   <script>
    "use strict";
-
-   // http://slicker.me/javascript/particles.htm inspired me to do this
 
    const milkySpace = new Space({
      id: "milky",
