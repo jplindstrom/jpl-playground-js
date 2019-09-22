@@ -50,7 +50,7 @@
       <div class="control-panel">
         <slot></slot>
 
-        <form>
+        <form @submit.prevent="">
           <p><b>Field</b></p>
           <ul>
             <li><label><input type="checkbox" name="drawFieldVector" checked>Vector</label></li>
