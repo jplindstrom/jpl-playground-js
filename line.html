@@ -73,6 +73,13 @@
   <script>
    "use strict";
 
+   const andromedaSpace = new Space({
+     id: "andromeda",
+     starCount: 4,
+     maxDistance: 20,
+     blackHoleGravity: 4,
+   });
+
    const milkySpace = new Space({
      id: "milky",
      starCount: 25,
@@ -93,12 +100,7 @@
    const simulations = [ milkySimulation ];
 
    const spaces = [
-     new Space({
-       id: "andromeda",
-       starCount: 4,
-       maxDistance: 20,
-       blackHoleGravity: 4,
-     }),
+     andromedaSpace,
      milkySpace,
    ];
 
