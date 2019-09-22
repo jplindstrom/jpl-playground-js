@@ -61,7 +61,7 @@
         <form @submit.prevent="">
           <p><b>Field</b></p>
           <ul>
-            <li><label><input type="checkbox" name="drawFieldVector" checked>Vector</label></li>
+            <li><label><input type="checkbox" name="drawFieldVector" v-model="space.drawFieldVector">Vector</label></li>
             <li><label><input type="checkbox" name="drawFieldStrength">Strength</label></li>
             <li><label><input type="checkbox" name="isFieldInverted">Inverted</label></li>
           </ul>
