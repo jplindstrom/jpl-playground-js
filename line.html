@@ -50,42 +50,31 @@
       <div class="control-panel">
         <slot></slot>
 
-        Control panel
+        <form>
+          <p><b>Field</b></p>
+          <ul>
+            <li><label><input type="checkbox" name="drawFieldVector" checked>Vector</label></li>
+            <li><label><input type="checkbox" name="drawFieldStrength">Strength</label></li>
+            <li><label><input type="checkbox" name="isFieldInverted">Inverted</label></li>
+          </ul>
+
+          <p><b>Star</b></p>
+          <ul>
+            <li>Count <input type="number" name="starCount" autocomplete="off" step="10" min="0" max="4000" /> </li>
+            <li><label><input type="checkbox" name="drawStarTail" checked>Tail</label></li>
+            <li><label><input type="checkbox" name="drawStarsLine" checked>Snap</label></li>
+          </ul>
+        </form>
+        <form>
+          <button class="restart-simulation">Restart stars</button>
+        </form>
+
+        <div class="displayTotal">Total dx: <span class="displayTotalX"></span></div>
+        <div class="displayTotal">Total dy: <span class="displayTotaly"></span></div>
+
       </div>
     </script>
 
-
-
-    <div id="milky-simulation" class="space-simulation">
-      <div>
-
-
-        <div class="control-panel">
-          <form>
-            <p><b>Field</b></p>
-            <ul>
-              <li><label><input type="checkbox" name="drawFieldVector" checked>Vector</label></li>
-              <li><label><input type="checkbox" name="drawFieldStrength">Strength</label></li>
-              <li><label><input type="checkbox" name="isFieldInverted">Inverted</label></li>
-            </ul>
-
-            <p><b>Star</b></p>
-            <ul>
-              <li>Count <input type="number" name="starCount" autocomplete="off" step="10" min="0" max="4000" /> </li>
-              <li><label><input type="checkbox" name="drawStarTail" checked>Tail</label></li>
-              <li><label><input type="checkbox" name="drawStarsLine" checked>Snap</label></li>
-            </ul>
-          </form>
-          <form>
-            <button class="restart-simulation">Restart stars</button>
-          </form>
-
-          <div class="displayTotal">Total dx: <span class="displayTotalX"></span>
-          <div class="displayTotal">Total dy: <span class="displayTotaly"></span>
-        </div>
-
-      </div>
-    </div>
 
 
     <div>
