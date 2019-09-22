@@ -7,20 +7,51 @@
   </head>
   <body>
 
-    <div id="app">
-      <div>
-        <space-control-panel :space="idToSpace['milky']" />
+    <div id="app" class="space-simulation">
+      <div class="space-viewport">
+        <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
       </div>
+
+      <!-- Milky Way -->
+
+      <space-control-panel :space="idToSpace['milky']" />
+
+
+      <!-- Andromeda -->
     </div>
+
 
     <script>
      Vue.component('space-control-panel', {
        props: ["space"],
        template: "#space-control-panel-template",
+
+       mounted: function() {
+         this.space.setup();
+         this.startTime();
+       },
+
+       methods: {
+         startTime: function() {
+           let passTimeCallback;
+           const self = this;
+           passTimeCallback = function() {
+             self.space.passTime();
+             requestAnimationFrame(passTimeCallback);
+           }
+
+           passTimeCallback();
+         },
+       },
+
      });
     </script>
     <script id ="space-control-panel-template" type="text/x-template">
-      <div>id: {{space.id}}</div>
+      <div class="control-panel">
+        <slot></slot>
+
+        Control panel
+      </div>
     </script>
 
 
@@ -28,9 +59,6 @@
     <div id="milky-simulation" class="space-simulation">
       <div>
 
-        <div class="space-viewport">
-          <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
-        </div>
 
         <div class="control-panel">
           <form>
@@ -79,6 +107,7 @@
      drawFieldVector: false,
      blackHoleGravity: 4,
    });
+   andromedaSpace.setup();
 
    const milkySpace = new Space({
      id: "milky",
@@ -94,7 +123,6 @@
 
    const spaces = [
      andromedaSpace,
-     milkySpace,
    ];
 
    function passTime() {
