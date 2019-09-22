@@ -6,12 +6,15 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
+
     <div id="app">
       <div>
-        <space-control-panel name="Flash Gordon">
-        </space-control-panel>
+        <space-control-panel v-bind:space="idToSpace['milky']" />
       </div>
     </div>
+
+
+
     <div id="milky-simulation" class="space-simulation">
       <div>
 
@@ -109,14 +112,17 @@
   <script>
 
    Vue.component('space-control-panel', {
-     props: ["name"],
-     template: `<div>Name: {{name}}</div>`,
+     props: ["space"],
+     template: `<div>id: {{space.id}}</div>`,
    });
 
    // vue app
    const vm = new Vue({
      el: "#app",
      data: {
+       idToSpace: {
+         milky: milkySpace,
+       },
      },
    });
   </script>
