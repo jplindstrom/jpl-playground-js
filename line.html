@@ -6,39 +6,86 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
-    <div id="milky-simulation" class="space-simulation">
-      <div>
 
-        <div class="space-viewport">
-          <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
-        </div>
+    <div id="app" class="space-simulation">
+      <div class="space-viewport">
+        <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
+      </div>
 
-        <div class="control-panel">
-          <form>
-            <p><b>Field</b></p>
-            <ul>
-              <li><label><input type="checkbox" name="drawFieldVector" checked>Vector</label></li>
-              <li><label><input type="checkbox" name="drawFieldStrength">Strength</label></li>
-              <li><label><input type="checkbox" name="isFieldInverted">Inverted</label></li>
-            </ul>
+      <!-- Milky Way -->
 
-            <p><b>Star</b></p>
-            <ul>
-              <li>Count <input type="number" name="starCount" autocomplete="off" step="10" min="0" max="4000" /> </li>
-              <li><label><input type="checkbox" name="drawStarTail" checked>Tail</label></li>
-              <li><label><input type="checkbox" name="drawStarsLine" checked>Snap</label></li>
-            </ul>
-          </form>
-          <form>
-            <button class="restart-simulation">Restart stars</button>
-          </form>
+      <space-control-panel :space="idToSpace['milky']" />
 
-          <div class="displayTotal">Total dx: <span class="displayTotalX"></span>
-          <div class="displayTotal">Total dy: <span class="displayTotaly"></span>
-        </div>
+
+      <!-- Andromeda -->
+    </div>
+
+
+    <script>
+     Vue.component('space-control-panel', {
+       props: ["space"],
+       template: "#space-control-panel-template",
+       data() {
+         return {
+         };
+       },
+
+       mounted: function() {
+         this.space.setup();
+         this.startTime();
+       },
+
+       methods: {
+         startTime: function() {
+           let passTimeCallback;
+           const self = this;
+           passTimeCallback = function() {
+             self.space.passTime();
+             requestAnimationFrame(passTimeCallback);
+           }
+
+           passTimeCallback();
+         },
+
+         clickRestartStars() {
+           this.space.restartStars();
+         },
+       },
+
+     });
+    </script>
+    <script id ="space-control-panel-template" type="text/x-template">
+      <div class="control-panel">
+        <slot></slot>
+
+        <form @submit.prevent>
+          <p><b>Field</b></p>
+          <ul>
+            <li><label><input type="checkbox" name="drawFieldVector" v-model="space.drawFieldVector">Vector</label></li>
+            <li><label><input type="checkbox" name="drawFieldStrength" v-model="space.drawFieldStrength">Strength</label></li>
+            <li><label><input type="checkbox" name="isFieldInverted" v-model="space.isFieldInverted">Inverted</label></li>
+          </ul>
+
+          <p><b>Star</b></p>
+          <ul>
+            <li>
+              Count
+              <input type="number" name="starCount" v-model.lazy="space.starCount" autocomplete="off" step="10" min="0" max="4000" /> 
+            </li>
+            <li><label><input type="checkbox" name="drawStarTail" v-model="space.drawStarTail">Tail</label></li>
+            <li><label><input type="checkbox" name="drawStarsLine" v-model="space.drawStarsLine">Snap</label></li>
+          </ul>
+        </form>
+        <form @submit.prevent>
+          <button @click.prevent="clickRestartStars" class="restart-simulation">Restart stars</button>
+        </form>
+
+        <div class="displayTotal">Total dx: <span class="displayTotalX"></span></div>
+        <div class="displayTotal">Total dy: <span class="displayTotaly"></span></div>
 
       </div>
-    </div>
+    </script>
+
 
 
     <div>
@@ -47,12 +94,20 @@
 
   </body>
 
-  <script src="./lib/simulation.js"></script>
   <script src="./lib/space.js"></script>
   <script src="./lib/field.js"></script>
   <script src="./lib/star.js"></script>
   <script>
    "use strict";
+
+   const andromedaSpace = new Space({
+     id: "andromeda",
+     starCount: 4,
+     maxDistance: 20,
+     drawFieldVector: false,
+     blackHoleGravity: 4,
+   });
+   andromedaSpace.setup();
 
    const milkySpace = new Space({
      id: "milky",
@@ -65,22 +120,9 @@
      drawFieldStrength: false,
      isFieldInverted: false,
    });
-   const milkySimulation = new Simulation({
-     id: "milky-simulation",
-     space: milkySpace,
-   });
-
-
-   const simulations = [ milkySimulation ];
 
    const spaces = [
-     new Space({
-       id: "andromeda",
-       starCount: 4,
-       maxDistance: 20,
-       blackHoleGravity: 4,
-     }),
-     milkySpace,
+     andromedaSpace,
    ];
 
    function passTime() {
@@ -92,10 +134,19 @@
    }
    passTime();
 
-   function updateSimulations() {
-     simulations.forEach( simulation => simulation.updateDisplay() );
-   }
-   setInterval(updateSimulations, 2000);
+  </script>
 
+
+  <script>
+   // vue app
+   const vm = new Vue({
+     el: "#app",
+     data: {
+       idToSpace: {
+         milky: milkySpace,
+         andromeda: andromedaSpace,
+       },
+     },
+   });
   </script>
 </html>
