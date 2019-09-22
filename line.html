@@ -25,6 +25,10 @@
      Vue.component('space-control-panel', {
        props: ["space"],
        template: "#space-control-panel-template",
+       data() {
+         return {
+         };
+       },
 
        mounted: function() {
          this.space.setup();
