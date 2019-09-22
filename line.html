@@ -16,10 +16,12 @@
     <script>
      Vue.component('space-control-panel', {
        props: ["space"],
-       template: `<div>id: {{space.id}}</div>`,
+       template: "#space-control-panel-template",
      });
     </script>
-
+    <script id ="space-control-panel-template" type="text/x-template">
+      <div>id: {{space.id}}</div>
+    </script>
 
 
 
