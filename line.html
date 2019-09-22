@@ -58,7 +58,7 @@
       <div class="control-panel">
         <slot></slot>
 
-        <form @submit.prevent="">
+        <form @submit.prevent>
           <p><b>Field</b></p>
           <ul>
             <li><label><input type="checkbox" name="drawFieldVector" v-model="space.drawFieldVector">Vector</label></li>
@@ -75,6 +75,8 @@
             <li><label><input type="checkbox" name="drawStarTail" v-model="space.drawStarTail">Tail</label></li>
             <li><label><input type="checkbox" name="drawStarsLine" v-model="space.drawStarsLine">Snap</label></li>
           </ul>
+        </form>
+        <form @submit.prevent>
           <button @click.prevent="clickRestartStars" class="restart-simulation">Restart stars</button>
         </form>
 
