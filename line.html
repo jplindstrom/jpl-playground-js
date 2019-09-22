@@ -8,7 +8,8 @@
   <body>
     <div id="app">
       <div>
-        {{name}}
+        <space-control-panel name="Flash Gordon">
+        </space-control-panel>
       </div>
     </div>
     <div id="milky-simulation" class="space-simulation">
@@ -106,11 +107,16 @@
 
 
   <script>
+
+   Vue.component('space-control-panel', {
+     props: ["name"],
+     template: `<div>Name: {{name}}</div>`,
+   });
+
    // vue app
    const vm = new Vue({
      el: "#app",
      data: {
-       name: "Flash Gordon",
      },
    });
   </script>
