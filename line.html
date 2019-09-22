@@ -6,6 +6,11 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
+    <div id="app">
+      <div>
+        {{name}}
+      </div>
+    </div>
     <div id="milky-simulation" class="space-simulation">
       <div>
 
@@ -97,5 +102,16 @@
    }
    setInterval(updateSimulations, 2000);
 
+  </script>
+
+
+  <script>
+   // vue app
+   const vm = new Vue({
+     el: "#app",
+     data: {
+       name: "Flash Gordon",
+     },
+   });
   </script>
 </html>
