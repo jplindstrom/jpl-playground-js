@@ -13,6 +13,14 @@
       </div>
     </div>
 
+    <script>
+     Vue.component('space-control-panel', {
+       props: ["space"],
+       template: `<div>id: {{space.id}}</div>`,
+     });
+    </script>
+
+
 
 
     <div id="milky-simulation" class="space-simulation">
@@ -110,12 +118,6 @@
 
 
   <script>
-
-   Vue.component('space-control-panel', {
-     props: ["space"],
-     template: `<div>id: {{space.id}}</div>`,
-   });
-
    // vue app
    const vm = new Vue({
      el: "#app",
