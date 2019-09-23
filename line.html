@@ -37,21 +37,9 @@
 
        mounted: function() {
          this.space.setup();
-         this.startTime();
        },
 
        methods: {
-         startTime: function() {
-           let passTimeCallback;
-           const self = this;
-           passTimeCallback = function() {
-             self.space.passTime();
-             requestAnimationFrame(passTimeCallback);
-           }
-
-           passTimeCallback();
-         },
-
          clickRestartStars() { this.space.restartStars() },
        },
 
@@ -118,6 +106,8 @@
      isFieldInverted: false,
    });
 
+   const spaces = [ milkySpace, andromedaSpace ];
+
 
    // vue app
    const vm = new Vue({
@@ -129,5 +119,16 @@
        },
      },
    });
+
+
+
+   function startTime() {
+     spaces.forEach(space => space.passTime());
+     requestAnimationFrame(startTime);
+   }
+
+   startTime();
+
   </script>
+
 </html>
