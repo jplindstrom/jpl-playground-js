@@ -62,6 +62,11 @@
         <slot></slot>
 
         <form @submit.prevent>
+          <p><b>Space</b></p>
+          <ul>
+            <li><label><input type="checkbox" name="isSpaceWrap" v-model="space.isSpaceWrap">Wrap around</label></li>
+          </ul>
+
           <p><b>Field</b></p>
           <ul>
             <li><label><input type="checkbox" name="drawFieldVector" v-model="space.drawFieldVector">Vector</label></li>
