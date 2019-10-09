@@ -82,6 +82,7 @@
             </li>
             <li><label><input type="checkbox" name="drawStarTail" v-model="space.drawStarTail">Tail</label></li>
             <li><label><input type="checkbox" name="drawStarsLine" v-model="space.drawStarsLine">Snap</label></li>
+            <li><label><input type="checkbox" name="isStarMovingInitially" v-model="space.isStarMovingInitially">Moving initially</label></li>
           </ul>
         </form>
         <form @submit.prevent>
@@ -118,6 +119,7 @@
      blackHoleGravity: 0,
      drawStarTail: true,
      drawStarsLine: true,
+     isStarMovingInitially: false,
      maxDistance: 60,
      drawFieldVector: true,
      drawFieldStrength: false,
