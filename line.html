@@ -14,7 +14,7 @@
         <div class="space-viewport">
           <canvas id="milky" class="galaxy" width="640" height="480"></canvas>
         </div>
-        <space-control-panel :space="idToSpace['milky']" />
+        <space-control-panel :space="spaceById('milky')" />
       </div>
 
 
@@ -23,7 +23,7 @@
         <div class="space-viewport">
           <canvas id="andromeda" class="galaxy" width="640" height="200"></canvas>
         </div>
-        <space-control-panel :space="idToSpace['andromeda']" />
+        <space-control-panel :space="spaceById('andromeda')" />
       </div>
 
     </div>
@@ -125,16 +125,26 @@
      isSpaceWrap: true,
    });
 
+   const idToSpace = {
+     milky: milkySpace,
+     andromeda: andromedaSpace,
+   };
+
 
    // vue app
    const vm = new Vue({
      el: "#app",
      data: {
-       idToSpace: {
-         milky: milkySpace,
-         andromeda: andromedaSpace,
+       // Don't store idToSpace in data, to avoid nested observers on
+       // all the stars
+     },
+     methods: {
+       spaceById(name) {
+         return idToSpace[name];
        },
      },
+
+
    });
   </script>
 </html>
